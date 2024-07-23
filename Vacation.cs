@@ -28,13 +28,7 @@ namespace AkelonTestv1
         /// Получить список рабочих дней в неделе.
         /// </summary>
         /// <returns></returns>
-        bool IsDayWorking(DayOfWeek dayOf)
-        {
-            if (dayOf == DayOfWeek.Saturday || dayOf == DayOfWeek.Sunday)
-                return false;
-
-            return true;
-        }
+        bool IsDayWorking(DayOfWeek dayOf) => dayOf is not DayOfWeek.Sunday and not DayOfWeek.Saturday;
 
         /// <summary>
         /// Получить случайный день начала отпуска.
