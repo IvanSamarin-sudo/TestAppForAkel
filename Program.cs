@@ -10,7 +10,7 @@ namespace AkelonTestv1
         {
             List<Worker> workers = new List<Worker>();
 
-            Vacation vacation = new Vacation();
+            VacationRandomizer vacation = new VacationRandomizer();
 
             List<string> names = new List<string>()
             {
