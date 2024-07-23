@@ -10,7 +10,9 @@ namespace AkelonTestv1
         {
             List<Worker> workers = new List<Worker>();
 
-            VacationRandomizer vacation = new VacationRandomizer();
+            List<DateTime> dates = new List<DateTime>();
+
+            Vacation vacation = new Vacation();
 
             List<string> names = new List<string>()
             {
@@ -33,7 +35,10 @@ namespace AkelonTestv1
                 {
                     do
                     {
-                        worker.Vacations.Add(vacation.GetVacation(worker));
+                        dates = vacation.GetVacation(worker);
+
+                        if (vacation.CanCreateVacation(dates, worker.Vacations))
+                            worker.Vacations.Add(dates);
                     }
                     while (worker.DaysOfVacation > worker.DaysDistributed);
                 }

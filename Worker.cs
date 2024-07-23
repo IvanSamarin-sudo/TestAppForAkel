@@ -70,7 +70,7 @@ namespace AkelonTestv1
             {
                 var firstDate = vac[0];
                 var lastDate = vac[vac.Count - 1];
-                    res += "\r\n" + firstDate.ToString() + "-" + lastDate.ToString();
+                    res += "\r\n" + firstDate.ToString("dd.MM.yy") + "-" + lastDate.ToString("dd.MM.yy");
             }
 
             return res;
