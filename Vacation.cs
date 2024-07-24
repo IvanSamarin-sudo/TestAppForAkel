@@ -17,7 +17,7 @@ namespace AkelonTestv1
         /// <summary>
         /// Уже распределённые отпуски.
         /// </summary>
-        public List<DateTime> DistributedDates = new List<DateTime>();
+        public List<List<DateTime>> DistributedDates = new List<List<DateTime>>();
 
         /// <summary>
         /// Экземпляр рандома.
@@ -51,13 +51,20 @@ namespace AkelonTestv1
         }
 
         /// <summary>
-        /// Возможно ли создать отпуск. С учётом уже занятых.
+        /// Возможно ли создать отпуск. С учётом уже занятых и уже имеющихся у сотрудника отпусков.
         /// </summary>
         /// <returns></returns>
         public bool CanCreateVacation(List<DateTime> startEndDates, List<List<DateTime>> workerVacations)
         {
-            bool noOverlap = !DistributedDates.Any(element => element >= startEndDates.First() && element <= startEndDates.Last());
-            bool noCloseOverlap = !DistributedDates.Any(element => element.AddDays(3) >= startEndDates.First() && element <= startEndDates.Last());
+            bool noOverlap = true;
+            bool noCloseOverlap = true;
+
+            foreach (var distributedVacation in DistributedDates)
+            {
+                noOverlap = !distributedVacation.Any(element => element >= startEndDates.First() && element <= startEndDates.Last());
+                noCloseOverlap = !distributedVacation.Any(element => element.AddDays(3) >= startEndDates.First() && element <= startEndDates.Last());
+            }
+
             bool noRecentOverlap = true;
             bool noFutureOverlap = true;
 
@@ -97,7 +104,9 @@ namespace AkelonTestv1
             if (worker.DaysDistributed < 28)
             {
                 vacation.Add(dayOfStart);
+
                 vacation.Add(dayOfExpire);
+
                 worker.DaysDistributed += step;
 
             }
@@ -105,7 +114,9 @@ namespace AkelonTestv1
             {
                 step = 3;
                 vacation.Add(dayOfStart);
+
                 vacation.Add(dayOfExpire);
+
                 worker.DaysDistributed += step;
             }
 

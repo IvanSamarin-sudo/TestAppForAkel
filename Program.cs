@@ -6,7 +6,7 @@ namespace AkelonTestv1
     class Program
     {
 
-        static void Main(string[] args)
+        static void Main()
         {
             List<Worker> workers = new List<Worker>();
 
